@@ -8,11 +8,6 @@ action "Shell Lint" {
   args = "entrypoint.sh"
 }
 
-action "Test" {
-  uses = "actions/bin/bats@master"
-  args = "test/*.bats"
-}
-
 action "Integration Test" {
   uses = "./"
   args = "version"
@@ -24,7 +19,7 @@ action "Docker Lint" {
 }
 
 action "Cargo Build" {
-  needs = ["Shell Lint", "Test", "Integration Test", "Docker Lint"]
+  needs = ["Shell Lint", "Integration Test", "Docker Lint"]
   uses = "actions/docker/cli@master"
   args = "build -t cargo ."
 }
