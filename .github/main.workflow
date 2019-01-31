@@ -1,6 +1,6 @@
 workflow "Build" {
   on = "push"
-  resolves = "Build"
+  resolves = "Cargo Build"
 }
 
 action "Shell Lint" {
@@ -23,7 +23,7 @@ action "Docker Lint" {
   args = ["Dockerfile"]
 }
 
-action "Build" {
+action "Cargo Build" {
   needs = ["Shell Lint", "Test", "Integration Test", "Docker Lint"]
   uses = "actions/docker/cli@master"
   args = "build -t cargo ."
